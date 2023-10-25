@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | Interactive rating component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Overpass&display=swap" rel="stylesheet">
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+    body{
+      min-height:100vh;
+      background:hsl(216, 12%, 8%);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .main{
+      height:365px;
+      width:30%;
+      background:hsl(213, 19%, 18%);
+      border-radius:15px;
+    }
+    .upper{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top:30px;
+      margin-left:30px;
+      background:hsl(214, 14%, 22%);
+      height:40px;
+      width:40px;
+      border-radius:50px;
+    }
+    .upper img{
+     color:hsl(25, 97%, 53%);
+     height:15px;
+    }
+    .content{
+      margin-top:25px;
+      margin-left:30px;
+    }
+    .content h1{
+      color:white;
+      font-family: 'Overpass', sans-serif;
+      font-weight:500;
+    }
+    .content p{
+      color:hsl(217, 12%, 63%);
+      margin-top:10px;
+      font-family: 'Overpass', sans-serif;
+      font-weight:400;
+      font-size:14px;
+      width:86%;
+    }
+    .rate{
+      display:flex;
+      align-items:center;
+      margin-left:15px;
+    }
+    .ratenum{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top:30px;
+      margin-left:22px;
+      background:hsl(214, 14%, 22%);
+      height:40px;
+      width:40px;
+      border-radius:50px;
+      color:hsl(217, 12%, 63%);
+      font-family: 'Overpass', sans-serif;
+      font-weight:500;
+    }
+    .ratenum:hover{
+      background-color:hsl(25, 97%, 53%);
+      color:white;
+      cursor:pointer;
+    }
+    .ratenum:focus{
+      background-color: hsl(217, 12%, 63%);
+      color: hsl(0, 0%, 100%);
+    }
+    .submit{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top:30px;
+    }
+    .btn{
+      height:45px;
+      width:84%;
+      border-radius:35px;
+      border:none;
+      background:hsl(25, 97%, 53%);
+      font-size:14px;
+      font-family: 'Overpass', sans-serif;
+      font-weight:500;
+      color:white;
+      letter-spacing:2px;
+       cursor:pointer;
+    }
+    .btn:hover{
+      color:hsl(25, 97%, 53%);
+      background:white;
+    }
+    .error{
+      color:red;
+      text-align:center;
+      margin-top:10px;
+    }
+    .up-img{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top:40px;
+      margin-left:30px;
+    }
+    .text-rate{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top:25px;
+      margin-left:115px;
+      width:max-content;
+      border-radius:36px;
+      color:hsl(25, 97%, 53%);
+      background:hsl(214, 14%, 22%);
+      height:35px;
+    }
+    .content2 h1{
+      font-size:26px;
+      text-align:center;
+    }
+    .content2 p{
+      text-align:center;
+      width:90%;
+    }
+    @media screen and (max-width:700px){
+      .main{
+        width:86%;
+      }
+      .content p{
+        width:95%;
+      }
+      .rate{
+        width:84%;
+      }
+    }
+  </style>
+</head>
+<body>
+<section class="main" id="show-screen">
+  <div class="upper">
+    <img src="icon-star.svg">
+  </div><div class="content">
+  <h1>How did we do?</h1>
+  <p>Please let us know how we did with your support request. All feedback is appreciated 
+  to help us improve our offering!</p>
+</div>
+<div class="rate">
+  <div class="ratenum" id="1">1</div>
+  <div class="ratenum" id="2">2</div>
+  <div class="ratenum" id="3">3</div>
+  <div class="ratenum" id="4">4</div>
+  <div class="ratenum" id="5">5</div>
+</div>
+<div class="submit">
+  <button class="btn" id="submit">SUBMIT</button>
+</div>
+<p class="error"></p>
+</section>
+<div class="main" id="hidden"  style="display: none;">
+  <div class="up-img">
+    <img src="illustration-thank-you.svg">
+  </div>
+  <p class="text-rate" id="text-rate"></p>
+  <div class="content content2">
+    <h1>Thank you!</h1>
+    <p>We appreciate you taking the time to give a rating. If you ever need more support, 
+    don’t hesitate to get in touch!</p>
+  </div>
+</div>
+<script>
+var btn = document.getElementById('submit');
+var rate = document.getElementsByClassName('ratenum');
+var show = document.querySelector('#show-screen');
+var hide = document.querySelector('#hidden');
+var a = undefined;
+for (var i = 0; i < rate.length; i++) {
+    rate[i].addEventListener("click", function() {
+        a = parseInt(this.id);
+    });
+}
+function submit() {
+    if (a !== undefined) {
+        show.style.display = "none";
+        hide.style.display = "block"
+        var text = document.getElementById('text-rate');
+        text.innerHTML = `You selected ${a} out of 5`;
+    } else {
+        var error = document.querySelector('.error');
+        error.innerHTML = `Oops! You forgot to give us a rating!`;
+        return error;
+    }
+}
+btn.addEventListener("click", submit);
+</script>
+</body>
+</html>
